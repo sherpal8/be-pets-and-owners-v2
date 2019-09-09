@@ -1,0 +1,29 @@
+{
+  "name": "be-pets-and-owners",
+  "version": "1.0.0",
+  "description": "backend pets and owners",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon listen.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherpal8/be-pets-and-owners-v2.git"
+  },
+  "keywords": [
+    "be"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherpal8/be-pets-and-owners-v2/issues"
+  },
+  "homepage": "https://github.com/sherpal8/be-pets-and-owners-v2#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
