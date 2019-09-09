@@ -29,19 +29,28 @@ const fetchOwnerById = (owner_id, cb) => {
 const updateOwner = (owner_id, data, cb) => {
   fetchOwnerById(owner_id, (err, singleOwner) => {
     if (err) cb(err);
-    singleOwner.name = data.name;
-    singleOwner.age = data.age;
-    cb(null, singleOwner);
+    console.log(singleOwner);
+    if (data.name) singleOwner.name = data.name;
+    if (data.age) singleOwner.age = data.age;
+    fs.writeFile(
+      `./data/owners/${owner_id}.json`,
+      JSON.stringify(singleOwner, null, 2),
+      err => {
+        if (err) cb(err);
+        cb(null, singleOwner);
+      }
+    );
   });
 };
 
 const createOwner = (data, cb) => {
   fetchAllOwners((err, owners) => {
     if (err) cb(err);
-    const newId = owners.length + 1;
+    const newId = Date.now();
     data.id = `o${newId}`;
+    console.log(data.id);
     fs.writeFile(
-      `./data/owners/o${newId}.json`,
+      `./data/owners/${data.id}.json`,
       JSON.stringify(data, null, 2),
       err => {
         if (err) cb(err);

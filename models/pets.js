@@ -37,7 +37,7 @@ const fetchPetsByOwnerId = (owner_id, cb) => {
 const createPet = (owner_id, data, cb) => {
   fs.readdir("./data/pets", (err, files) => {
     if (err) cb(err);
-    const newPetId = `p${files.length + 1}`;
+    const newPetId = `p${Date.now()}`;
     data.id = newPetId;
     data.owner = owner_id;
     fs.writeFile(
