@@ -10,7 +10,7 @@ const _pets = {};
 _pets.getPetById = (req, res) => {
   const { pet_id } = req.params;
   fetchPetById(pet_id, (err, parsedPetData) => {
-    if (err) next(err);
+    if (err) console.log(err);
     res.status(200).send({ petById: parsedPetData });
   });
 };
@@ -18,7 +18,7 @@ _pets.getPetById = (req, res) => {
 _pets.getPetsByOwnerId = (req, res) => {
   const { owner_id } = req.params;
   fetchPetsByOwnerId(owner_id, (err, petsByOwnerArr) => {
-    if (err) next(err);
+    if (err) console.log(err);
     res.status(200).send({ petsByOwner: petsByOwnerArr });
   });
 };
@@ -27,7 +27,7 @@ _pets.postPets = (req, res) => {
   const { owner_id } = req.params;
   const data = req.body;
   createPet(owner_id, data, (err, newPetData) => {
-    if (err) next(err);
+    if (err) console.log(err);
     res.status(201).send({ newPetData });
   });
 };

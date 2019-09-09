@@ -1,3 +1,7 @@
-const error = {};
+const errObj = {};
 
-error.error404 = (req, res, next) => {};
+errObj.error404 = (req, res, next) => {
+  res.status(404).send({ msg: "Page not found" });
+};
+
+module.exports = { errObj };
