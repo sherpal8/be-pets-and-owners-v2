@@ -10,7 +10,7 @@ const _pets = {};
 _pets.getPetById = (req, res) => {
   const { pet_id } = req.params;
   fetchPetById(pet_id, (err, parsedPetData) => {
-    if (err) console.log(err);
+    if (err) next(err);
     res.status(200).send({ petById: parsedPetData });
   });
 };
@@ -18,7 +18,7 @@ _pets.getPetById = (req, res) => {
 _pets.getPetsByOwnerId = (req, res) => {
   const { owner_id } = req.params;
   fetchPetsByOwnerId(owner_id, (err, petsByOwnerArr) => {
-    if (err) console.log(err);
+    if (err) next(err);
     res.status(200).send({ petsByOwner: petsByOwnerArr });
   });
 };
@@ -27,7 +27,7 @@ _pets.postPets = (req, res) => {
   const { owner_id } = req.params;
   const data = req.body;
   createPet(owner_id, data, (err, newPetData) => {
-    if (err) console.log(err);
+    if (err) next(err);
     res.status(201).send({ newPetData });
   });
 };
@@ -35,7 +35,7 @@ _pets.postPets = (req, res) => {
 _pets.deletePetByIdController = (req, res) => {
   const { pet_id } = req.params;
   deletePetById(pet_id, (err, msg) => {
-    if (err) console.log(err);
+    if (err) next(err);
     res.status(200).send(msg);
   });
 };

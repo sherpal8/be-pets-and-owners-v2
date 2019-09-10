@@ -2,10 +2,10 @@ const fs = require("fs");
 
 const fetchPetById = (pet_id, cb) => {
   fs.readdir("./data/pets", (err, files) => {
-    if (err) cb(err);
+    if (err) cb({ status: 404, msg: "File does not exist" });
     files.forEach(file => {
       fs.readFile(`./data/pets/${file}`, "utf-8", (err, petData) => {
-        if (err) cb(err);
+        if (err) cb({ status: 404, msg: "File does not exist" });
         const parsedPetData = JSON.parse(petData);
         if (parsedPetData.id === pet_id) {
           cb(null, parsedPetData);
@@ -17,11 +17,11 @@ const fetchPetById = (pet_id, cb) => {
 
 const fetchPetsByOwnerId = (owner_id, cb) => {
   fs.readdir("./data/pets", (err, files) => {
-    if (err) cb(err);
+    if (err) cb({ status: 404, msg: "Directory does not exist" });
     const petsArr = [];
     files.forEach(file => {
       fs.readFile(`./data/pets/${file}`, "utf-8", (err, petData) => {
-        if (err) cb(err);
+        if (err) cb({ status: 404, msg: "File does not exist" });
         const parsedPetData = JSON.parse(petData);
         petsArr.push(parsedPetData);
         if (petsArr.length === files.length) {
@@ -36,7 +36,7 @@ const fetchPetsByOwnerId = (owner_id, cb) => {
 
 const createPet = (owner_id, data, cb) => {
   fs.readdir("./data/pets", (err, files) => {
-    if (err) cb(err);
+    if (err) cb({ status: 404, msg: "Directory does not exist" });
     const newPetId = `p${Date.now()}`;
     data.id = newPetId;
     data.owner = owner_id;
@@ -53,7 +53,7 @@ const createPet = (owner_id, data, cb) => {
 
 const deletePetById = (pet_id, cb) => {
   fs.unlink(`./data/pets/${pet_id}.json`, err => {
-    if (err) cb(err);
+    if (err) cb({ status: 404, msg: "File does not exist" });
     const msg = { msg: "Successful deletion" };
     cb(null, msg);
   });

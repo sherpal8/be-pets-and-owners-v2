@@ -3,11 +3,11 @@ const { fetchPetsByOwnerId } = require("../models/pets.js");
 
 const fetchAllOwners = cb => {
   fs.readdir("./data/owners", (err, files) => {
-    if (err) cb(err);
+    if (err) cb({ status: 404, msg: "Directory does not exist" });
     let ownersArr = [];
     files.forEach(file => {
       fs.readFile(`./data/owners/${file}`, "utf-8", (err, owner) => {
-        if (err) cb(err);
+        if (err) cb({ status: 404, msg: "File does not exist" });
         const parsedOwner = JSON.parse(owner);
         ownersArr.push(parsedOwner);
         if (ownersArr.length === files.length) {
@@ -48,7 +48,6 @@ const createOwner = (data, cb) => {
     if (err) cb(err);
     const newId = Date.now();
     data.id = `o${newId}`;
-    console.log(data.id);
     fs.writeFile(
       `./data/owners/${data.id}.json`,
       JSON.stringify(data, null, 2),
@@ -62,14 +61,14 @@ const createOwner = (data, cb) => {
 
 const deleteOwnerById = (owner_id, cb) => {
   fs.unlink(`./data/owners/${owner_id}.json`, err => {
-    if (err) cb(err);
+    if (err) cb({ status: 404, msg: "File does not exist" });
     fetchPetsByOwnerId(owner_id, (err, petsByOwnerArr) => {
       if (err) cb(err);
       let counter = 0;
       petsByOwnerArr.forEach(pet => {
         counter++;
         fs.unlink(`./data/pets/${pet.id}.json`, err => {
-          if (err) cb(err);
+          if (err) cb({ status: 404, msg: "File does not exist" });
           if (counter === petsByOwnerArr.length) {
             const msg = {
               msg: `Successful deletion of owner and pets`
