@@ -1,10 +1,15 @@
 const ownersRouter = require("express").Router();
 const _ = require("../controllers/owners");
 
-ownersRouter.get("/", _.getAllOwners);
-ownersRouter.post("/", _.postOwner);
-ownersRouter.get("/:owner_id", _.getOwnerById);
-ownersRouter.patch("/:owner_id", _.patchOwner);
-ownersRouter.delete("/:owner_id", _.deleteOwnerByIdController);
+ownersRouter
+  .route("/")
+  .get(_.getAllOwners)
+  .post(_.postOwner);
+
+ownersRouter
+  .route("/:owner_id")
+  .get(_.getOwnerById)
+  .patch(_.patchOwner)
+  .delete(_.deleteOwnerByIdController);
 
 module.exports = ownersRouter;
