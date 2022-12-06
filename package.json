@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/sherpal8/be-pets-and-owners-v2#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"
